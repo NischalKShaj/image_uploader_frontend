@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-custom {
+  background-image: url("../img/no-matter-forgotten-memory-dull-wallpaper-preview.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Base style for label */
+.input_field {
+  width: 100%;
+  height: 55px;
+  font-size: 16px;
+  background: transparent;
+  color: #ffffff;
+  padding: 0 20px;
+  border: 2px solid #c6c3c3;
+  border-radius: 100px;
+  outline: none;
+  position: relative;
+}
+
+/* Adjust label positioning and transition */
+.input_field:focus ~ .label,
+.input_field:not(:placeholder-shown) ~ .label {
+  top: -10px; /* Move label up when input is focused or has a value */
+  left: 20px;
+  font-size: 14px;
+  color: #000000; /* Text color for label */
+  padding: 0 5px; /* Padding for label */
+  border-radius: 5px; /* Rounded corners for label */
+  transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+
+/* Initial label position */
+.label {
+  position: absolute;
+  top: 15px; /* Initial position */
+  left: 20px;
+  font-size: 16px;
+  color: #000000;
+  transition: all 0.2s ease-in-out;
+}
+
+/* for adding the style for the pdf */
+canvas.react-pdf__Page__canvas {
+  margin-bottom: 50px;
+}
