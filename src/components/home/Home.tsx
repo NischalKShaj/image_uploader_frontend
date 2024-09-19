@@ -11,6 +11,7 @@ const Home = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const isAuthorized = AppState((state) => state.isAuthorized);
+  const isLoggedOut = AppState((state) => state.isLoggedOut);
   const [file, setFile] = useState<File | null>(null);
   const [imageName, setImageName] = useState("");
   const [uploadedFile, setUploadedFile] = useState<
@@ -180,6 +181,26 @@ const Home = () => {
     }
   };
 
+  const handleLogout = async () => {
+    const token = localStorage.getItem("access_token");
+    try {
+      const response = await axios.get(`${baseUrl}/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      if (response.status === 202) {
+        isLoggedOut();
+        localStorage.removeItem("access_token");
+        navigate("/");
+        alert("user logged out");
+      }
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
   return (
     <div className="bg-custom w-full flex flex-col justify-center items-center min-h-screen space-y-6 p-4">
       <div className="bg-white shadow-md rounded-lg p-8 flex flex-col justify-center items-center space-y-4 outline-dotted">
@@ -255,6 +276,13 @@ const Home = () => {
           </ul>
         )}
       </div>
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transition duration-300 ease-in-out"
+        type="button"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </div>
   );
 };
